@@ -52,6 +52,7 @@ Sk.builtins = {
     "UnicodeDecodeError" : Sk.builtin.UnicodeDecodeError,
     "UnicodeEncodeError" : Sk.builtin.UnicodeEncodeError,
     "NameError"          : Sk.builtin.NameError,
+    "UnboundLocalError"  : Sk.builtin.UnboundLocalError,
     "IOError"            : Sk.builtin.IOError,
     "NotImplementedError": Sk.builtin.NotImplementedError,
     "SystemExit"         : Sk.builtin.SystemExit,
