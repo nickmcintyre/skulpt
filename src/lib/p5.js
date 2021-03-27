@@ -21,8 +21,21 @@ function $builtinmodule() {
         for (let i in window.p5.prototype) {
             const asStr = new Sk.builtin.str(i);
             const mangled = asStr.$mangled;
+            if (i === "applyMatrix") {
+                const applyMatrix = p.tp$getattr(asStr);
+                mod[mangled] = new Sk.builtin.func(function(matrix) {
+                    matrix = Sk.ffi.remapToJs(matrix);
+                    const a = matrix[0][0];
+                    const b = matrix[1][0];
+                    const c = matrix[0][1];
+                    const d = matrix[1][1];
+                    const e = matrix[0][2];
+                    const f = matrix[1][2];
+                    Sk.misceval.callsimArray(applyMatrix, [a, b, c, d, e, f]);
+                });
+            }
             // it would be crazy to override builtins like print
-            if (!(mangled in Sk.builtins)) {
+            else if (!(mangled in Sk.builtins)) {
                 mod[mangled] = p.tp$getattr(asStr);
             }
         }
